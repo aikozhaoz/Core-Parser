@@ -1,7 +1,6 @@
 public class DeclSeq {
 
     public static int option = 0;
-    public Core current;
 
     public Decl decl = new Decl();
     public DeclSeq declseq = new DeclSeq();
