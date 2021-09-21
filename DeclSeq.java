@@ -14,6 +14,6 @@ public class DeclSeq {
     }
 
     public void print() {
-
+        
     }
 }

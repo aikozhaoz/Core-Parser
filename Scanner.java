@@ -233,8 +233,8 @@ class Scanner {
 	public boolean expectedToken(Core c){
 		boolean result = false;
 		if(this.currentToken()==c){
-			this.nextToken();
 			result = true;
+			this.nextToken();
 		}
 		return result;
 	}
