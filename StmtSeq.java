@@ -1,6 +1,7 @@
 public class StmtSeq {
 
     public static int option = 0;
+
     public Stmt stmt = new Stmt();
     public StmtSeq stmtseq = new StmtSeq();
 
@@ -13,7 +14,8 @@ public class StmtSeq {
         }
     }
 
-    public void print() {
-
+    public void print(int indent) {
+        stmt.print(indent);
+        stmtseq.print(indent);
     }
 }

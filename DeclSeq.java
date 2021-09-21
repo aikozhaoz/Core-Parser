@@ -1,6 +1,8 @@
 public class DeclSeq {
 
     public static int option = 0;
+    public Core current;
+
     public Decl decl = new Decl();
     public DeclSeq declseq = new DeclSeq();
 
@@ -13,7 +15,8 @@ public class DeclSeq {
         }
     }
 
-    public void print() {
-        
+    public void print(int indent) {
+        decl.print(indent);
+        declseq.print(indent);
     }
 }
