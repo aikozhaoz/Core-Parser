@@ -5,13 +5,14 @@ public class DeclClass {
     public IdList idlist = new IdList();
 
     public void parse(Scanner S) {
+        // <decl-class> ::= ref <id-list> ;
         if (!S.expectedToken(Core.REF)) {
-            Utility.errorhelper(Core.REF, S.currentToken());
+            Utility.expectedhelper(Core.REF, S.currentToken());
             System.exit(-1);
         }
         idlist.parse(S);
         if (!S.expectedToken(Core.SEMICOLON)) {
-            Utility.errorhelper(Core.SEMICOLON, S.currentToken());
+            Utility.expectedhelper(Core.SEMICOLON, S.currentToken());
             System.exit(-1);
         }
     }

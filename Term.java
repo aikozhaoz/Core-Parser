@@ -6,17 +6,17 @@ public class Term {
     public Term term = new Term();
 
     public void parse(Scanner S) {
+        // <term> ::= <factor> | <factor> * <term>
+        // Regardless of which option we are on.
+        // The first token is <factor>
+        // Option 1: <term> ::= <factor>
         option = 1;
         factor.parse(S);
+        // Option 2: <factor> * <term>
         if (S.currentToken() == Core.MULT) {
             option = 2;
             S.expectedToken(Core.MULT);
             term.parse(S);
-        }// More conditions need to be add
-        else if (S.currentToken()!= Core.SUB || S.currentToken()!= Core.ADD){
-            System.out.print("The expections are not met. ");
-            Utility.errorhelper(Core.MULT, S.currentToken());
-            System.exit(-1);
         }
     }
 

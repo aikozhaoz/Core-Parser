@@ -1,16 +1,40 @@
 public class Out {
 
+    public String line;
+
     public Expr expr = new Expr();
-    
-    public void parse(Scanner S){
-        S.expectedToken(Core.OUTPUT);
+
+    public void parse(Scanner S) {
+        // <out> ::= output <expr> ;
+        if (!S.expectedToken(Core.OUTPUT)) {
+            Utility.expectedhelper(Core.OUTPUT, S.currentToken());
+            System.exit(-1);
+        }
+        // <expr> ::= <term> | <term> + <expr> | <term> – <expr> 
+        // <term> ::= <factor> | <factor> * <term>
+        // <factor> ::= id | const | ( <expr> )
         if (S.currentToken() == Core.ID || S.currentToken() == Core.CONST || S.currentToken() == Core.LPAREN) {
             expr.parse(S);
+        } 
+        // So if the currentToken != id or const or (, then invalid syntax
+        else {
+            Core[] expectedones = new Core[]{Core.ID, Core.CONST, Core.LPAREN};
+            Utility.errorhelper(expectedones, S.currentToken());
+            System.exit(-1);
         }
-        S.expectedToken(Core.SEMICOLON);
+        if (!S.expectedToken(Core.SEMICOLON)) {
+            Utility.expectedhelper(Core.SEMICOLON, S.currentToken());
+            System.exit(-1);
+        }
     }
-    
-    public void print(int indent){
-        
+
+    public void print(int indent) {
+        for (int i = 0; i < indent; i++) {
+            line += "  ";
+        }
+        line += "output ";
+        System.out.print(line);
+        expr.print(indent);
+        System.out.println(";");
     }
 }

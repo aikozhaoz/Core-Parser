@@ -1,26 +1,34 @@
 public class In {
-    
-    public String id = "";
 
-    public void parse(Scanner S){
-        if(!S.expectedToken(Core.INPUT)){
-            Utility.errorhelper(Core.INPUT, S.currentToken());
+    public String line;
+
+    public String id;
+
+    public void parse(Scanner S) {
+        // <in> ::= input id ;
+        if (!S.expectedToken(Core.INPUT)) {
+            Utility.expectedhelper(Core.INPUT, S.currentToken());
             System.exit(-1);
         }
-        if(S.currentToken()==Core.ID){
+        if (S.currentToken() == Core.ID) {
             id = S.getID();
             S.nextToken();
-        }else{
-            Utility.errorhelper(Core.ID, S.currentToken());
+        } else {
+            Utility.expectedhelper(Core.ID, S.currentToken());
             System.exit(-1);
         }
-        if(!S.expectedToken(Core.SEMICOLON)){
-            Utility.errorhelper(Core.SEMICOLON, S.currentToken());
+        if (!S.expectedToken(Core.SEMICOLON)) {
+            Utility.expectedhelper(Core.SEMICOLON, S.currentToken());
             System.exit(-1);
         }
     }
-    
-    public void print(int indent){
-        
+
+    public void print(int indent) {
+        for (int i = 0; i < indent; i++) {
+            line += "  ";
+        }
+        line += "input ";
+        line += id;
+        System.out.println(line + ";");
     }
 }

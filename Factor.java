@@ -1,23 +1,40 @@
 public class Factor {
 
     public int option = 0;
+
+    public String id;
+    public int cons;
     public Expr expr = new Expr();
 
     public void parse(Scanner S) {
+        // <factor> ::= id | const | ( <expr> )
+        // Option 1: <factor> ::= id
         if (S.currentToken() == Core.ID) {
+            id = S.getID();
             option = 1;
             S.expectedToken(Core.ID);
-        } else if (S.currentToken() == Core.CONST) {
+        }
+        // Option 2: <factor> ::= const
+        else if (S.currentToken() == Core.CONST) {
+            cons = S.getCONST();
             option = 2;
             S.expectedToken(Core.CONST);
-        } else if (S.currentToken() == Core.LPAREN) {
+        }
+        // Option 3: <factor> ::= ( <expr> )
+        else if (S.currentToken() == Core.LPAREN) {
             option = 3;
             S.expectedToken(Core.LPAREN);
             expr.parse(S);
             if (!S.expectedToken(Core.RPAREN)) {
-                Utility.errorhelper(Core.RPAREN, S.currentToken());
+                Utility.expectedhelper(Core.RPAREN, S.currentToken());
                 System.exit(-1);
             }
+        }
+        // So if the currentToken != "id or const or (", then syntax is invalid.
+        else {
+            Core[] expectedones = new Core[] { Core.ID, Core.CONST, Core.LPAREN };
+            Utility.errorhelper(expectedones, S.currentToken());
+            System.exit(-1);
         }
 
     }
