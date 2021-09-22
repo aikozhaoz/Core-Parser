@@ -27,8 +27,6 @@ public class In {
         for (int i = 0; i < indent; i++) {
             line += "  ";
         }
-        line += "input ";
-        line += id;
-        System.out.println(line + ";");
+        System.out.println(line + "input " + id + ";");
     }
 }

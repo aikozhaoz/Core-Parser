@@ -1,5 +1,7 @@
 public class Loop {
 
+    public String line;
+
     public Cond cond = new Cond();
     public StmtSeq stmtseq = new StmtSeq();
 
@@ -22,7 +24,14 @@ public class Loop {
     }
 
     public void print(int indent) {
-        System.out.print("while ");
+        for (int i = 0; i < indent; i++) {
+            line += "  ";
+        }
+        System.out.print(line + "while ");
         cond.print(indent);
+        System.out.println(" begin");
+        indent++;
+        stmtseq.print(indent);
+        System.out.println("endwhile");
     }
 }

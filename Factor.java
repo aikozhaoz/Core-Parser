@@ -40,6 +40,14 @@ public class Factor {
     }
 
     public void print(int indent) {
-
+        if(option == 1){
+            System.out.print(id);
+        }else if(option == 2){
+            System.out.print(cons);
+        }if(option == 3){
+            System.out.print("(");
+            expr.print(indent);
+            System.out.print(")");
+        }
     }
 }

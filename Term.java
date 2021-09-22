@@ -21,6 +21,10 @@ public class Term {
     }
 
     public void print(int indent) {
-
+        factor.print(indent);
+        if(option==2){
+            System.out.print("*");
+            term.print(indent);
+        }
     }
 }

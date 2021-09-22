@@ -1,6 +1,7 @@
 public class If {
 
     public static int option = 0;
+    public String line;
 
     public Cond cond = new Cond();
     public StmtSeq stmtseqone = new StmtSeq();
@@ -42,7 +43,22 @@ public class If {
     }
 
     public void print(int indent) {
-        System.out.print("if ");
+        for (int i = 0; i < indent; i++) {
+            line += "  ";
+        }
+        System.out.print(line + "if");
         cond.print(indent);
+        System.out.println(" then");
+        indent++;
+        if(option==1){
+            stmtseqone.print(indent);
+            System.out.println(line + "endif");
+        }else if(option ==2){
+            stmtseqone.print(indent);
+            System.out.println(line + "else");
+            stmtseqtwo.print(indent);
+            System.out.println(line + "endif");
+        }
+        
     }
 }

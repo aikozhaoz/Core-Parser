@@ -1,6 +1,7 @@
 public class Cond {
 
     public static int option = 0;
+    public String line;
 
     public Cmpr cmpr = new Cmpr();
     public Cond cond = new Cond();
@@ -20,10 +21,10 @@ public class Cond {
                 Utility.expectedhelper(Core.RPAREN, S.currentToken());
                 System.exit(-1);
             }
-        } 
+        }
         // Option 2: <cond> ::= <cmpr>
         // <cmpr> ::= <expr> == <expr> | <expr> < <expr> | <expr> <= <expr>
-        // <expr> ::= <term> | <term> + <expr> | <term> – <expr> 
+        // <expr> ::= <term> | <term> + <expr> | <term> – <expr>
         // <term> ::= <factor> | <factor> * <term>
         // <factor> ::= id | const | ( <expr> )
         else if (S.currentToken() == Core.ID || S.currentToken() == Core.CONST || S.currentToken() == Core.LPAREN) {
@@ -37,14 +38,27 @@ public class Cond {
             }
         }
         // So if the currentToken != "! or id or const or ("", then syntax is invalid.
-        else{
-            Core[] expectedones = new Core[]{Core.NEGATION, Core.ID, Core.CONST, Core.LPAREN};
+        else {
+            Core[] expectedones = new Core[] { Core.NEGATION, Core.ID, Core.CONST, Core.LPAREN };
             Utility.errorhelper(expectedones, S.currentToken());
             System.exit(-1);
         }
     }
 
     public void print(int indent) {
-
+        for (int i = 0; i < indent; i++) {
+            line += "  ";
+        }
+        if (option == 1) {
+            System.out.print(line + "!( ");
+            cond.print(indent);
+            System.out.print(") ");
+        } else if (option == 2) {
+            cmpr.print(indent);
+        } else if (option == 3) {
+            cmpr.print(indent);
+            System.out.print(" or ");
+            cond.print(indent);
+        }
     }
 }

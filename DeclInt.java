@@ -21,8 +21,7 @@ public class DeclInt {
         for (int i = 0; i < indent; i++) {
             line += "  ";
         }
-        line += "int ";
-        System.out.print(line);
+        System.out.print(line + "int ");
         idlist.print(indent);
         System.out.println(";");
     }

@@ -21,8 +21,7 @@ public class DeclClass {
         for (int i = 0; i < indent; i++) {
             line += "  ";
         }
-        line += "ref ";
-        System.out.print(line);
+        System.out.print(line + "ref ");
         idlist.print(indent);
         System.out.println(";");
     }
