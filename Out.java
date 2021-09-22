@@ -4,11 +4,13 @@ public class Out {
     
     public void parse(Scanner S){
         S.expectedToken(Core.OUTPUT);
-        expr.parse(S);
+        if (S.currentToken() == Core.ID || S.currentToken() == Core.CONST || S.currentToken() == Core.LPAREN) {
+            expr.parse(S);
+        }
         S.expectedToken(Core.SEMICOLON);
     }
     
-    public void print(){
+    public void print(int indent){
         
     }
 }

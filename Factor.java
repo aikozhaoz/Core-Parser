@@ -14,12 +14,15 @@ public class Factor {
             option = 3;
             S.expectedToken(Core.LPAREN);
             expr.parse(S);
-            S.expectedToken(Core.RPAREN);
+            if (!S.expectedToken(Core.RPAREN)) {
+                Utility.errorhelper(Core.RPAREN, S.currentToken());
+                System.exit(-1);
+            }
         }
 
     }
 
-    public void print() {
+    public void print(int indent) {
 
     }
 }

@@ -1,5 +1,5 @@
 public class Utility {
-    
+
     public static void errorhelper(Core expected, Core current){
         if(current == Core.ERROR){
             System.out.println("ERROR: Invalid token!");

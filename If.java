@@ -6,9 +6,15 @@ public class If {
     public StmtSeq stmtseqtwo = new StmtSeq();
 
     public void parse(Scanner S) {
-        S.expectedToken(Core.IF);
+        if(!S.expectedToken(Core.IF)){
+            Utility.errorhelper(Core.IF, S.currentToken());
+            System.exit(-1);
+        }
         cond.parse(S);
-        S.expectedToken(Core.THEN);
+        if(!S.expectedToken(Core.THEN)){
+            Utility.errorhelper(Core.THEN, S.currentToken());
+            System.exit(-1);
+        }
         stmtseqone.parse(S);
         if (S.currentToken() == Core.ENDIF) {
             option = 1;
@@ -17,11 +23,15 @@ public class If {
             option = 2;
             S.expectedToken(Core.ELSE);
             stmtseqtwo.parse(S);
-            S.expectedToken(Core.ENDIF);
+            if(!S.expectedToken(Core.ENDIF)){
+                Utility.errorhelper(Core.ENDIF, S.currentToken());
+                System.exit(-1);
+            }
         }
     }
 
-    public void print() {
-
+    public void print(int indent) {
+        System.out.print("if ");
+        cond.print(indent);
     }
 }

@@ -1,14 +1,28 @@
 public class DeclInt {
 
+    public String line;
+
     public IdList idlist = new IdList();
 
     public void parse(Scanner S) {
-        S.expectedToken(Core.INT);
+        if (!S.expectedToken(Core.INT)) {
+            Utility.errorhelper(Core.INT, S.currentToken());
+            System.exit(-1);
+        }
         idlist.parse(S);
-        S.expectedToken(Core.SEMICOLON);
+        if (!S.expectedToken(Core.SEMICOLON)) {
+            Utility.errorhelper(Core.SEMICOLON, S.currentToken());
+            System.exit(-1);
+        }
     }
 
-    public void print() {
-
+    public void print(int indent) {
+        for(int i=0; i < indent; i++){
+           line+="  ";
+        }
+        line+="int ";
+        System.out.print(line);
+        idlist.print(indent);
+        System.out.println(";");
     }
 }

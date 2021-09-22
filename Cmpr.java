@@ -1,6 +1,7 @@
 public class Cmpr {
 
     public int option = 0;
+
     public Expr exprone = new Expr();
     public Expr exprtwo = new Expr();
 
@@ -18,10 +19,16 @@ public class Cmpr {
             option = 3;
             S.expectedToken(Core.LESSEQUAL);
             exprtwo.parse(S);
+        }else{
+            System.out.print("The expections are not met. ");
+            Utility.errorhelper(Core.EQUAL, S.currentToken());
+            Utility.errorhelper(Core.LESS, S.currentToken());
+            Utility.errorhelper(Core.LESSEQUAL, S.currentToken());
+            System.exit(-1);
         }
     }
 
-    public void print() {
+    public void print(int indent) {
 
     }
 }

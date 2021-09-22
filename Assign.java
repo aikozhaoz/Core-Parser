@@ -1,28 +1,65 @@
 public class Assign {
 
     public int option = 0;
+    public String line;
+
     public Expr expr = new Expr();
+    public String idone = "";
+    public String idtwo = "";
 
     public void parse(Scanner S) {
-        S.expectedToken(Core.ID);
-        S.expectedToken(Core.ASSIGN);
+        if(S.currentToken()==Core.ID){
+            idone = S.getID();
+            S.nextToken();
+        }else{
+            Utility.errorhelper(Core.ID, S.currentToken());
+            System.exit(-1);
+        }
+        if(!S.expectedToken(Core.ASSIGN)){
+            Utility.errorhelper(Core.ASSIGN, S.currentToken());
+            System.exit(-1);
+        }
+        // Option 1: id = new;
         if (S.currentToken() == Core.NEW) {
             option = 1;
             S.expectedToken(Core.NEW);
-            S.expectedToken(Core.SEMICOLON);
-        } else if (S.currentToken() == Core.REF) {
+            if(!S.expectedToken(Core.SEMICOLON)){
+                Utility.errorhelper(Core.SEMICOLON, S.currentToken());
+                System.exit(-1);
+            }
+        } 
+        // Option 2: id = ref id;
+        else if (S.currentToken() == Core.REF) {
             option = 2;
             S.expectedToken(Core.REF);
-            S.expectedToken(Core.ID);
-            S.expectedToken(Core.SEMICOLON);
-        } else if (S.currentToken() == Core.ID || S.currentToken() == Core.CONST || S.currentToken() == Core.LPAREN) {
+            if(S.currentToken()==Core.ID){
+                idtwo = S.getID();
+                S.nextToken();
+            }else{
+                Utility.errorhelper(Core.ID, S.currentToken());
+                System.exit(-1);
+            }
+            if(!S.expectedToken(Core.SEMICOLON)){
+                Utility.errorhelper(Core.SEMICOLON, S.currentToken());
+                System.exit(-1);
+            }
+        } 
+        // Option 3: id = <expr>;
+        else if (S.currentToken() == Core.ID || S.currentToken() == Core.CONST || S.currentToken() == Core.LPAREN) {
             option = 3;
             expr.parse(S);
-            S.expectedToken(Core.SEMICOLON);
+            if(!S.expectedToken(Core.SEMICOLON)){
+                Utility.errorhelper(Core.SEMICOLON, S.currentToken());
+                System.exit(-1);
+            }
         }
     }
 
-    public void print() {
-
+    public void print(int indent) {
+        for (int i = 0; i < indent; i++) {
+            line += "  ";
+        }
+        line += idone;
+        line += " = ";
     }
 }

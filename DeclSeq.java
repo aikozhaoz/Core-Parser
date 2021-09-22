@@ -16,6 +16,8 @@ public class DeclSeq {
 
     public void print(int indent) {
         decl.print(indent);
-        declseq.print(indent);
+        if(option == 2){
+            declseq.print(indent);
+        }
     }
 }

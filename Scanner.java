@@ -228,8 +228,7 @@ class Scanner {
 		return Integer.parseInt(this.current);
 	}
 
-	// Return if the current token == given Core c. 
-	// If so then dequeue the currentToken.
+	// Return if the current token == given Core c. Dequeue tokens
 	public boolean expectedToken(Core c){
 		boolean result = false;
 		if(this.currentToken()==c){
