@@ -1,0 +1,33 @@
+program
+    int a;
+    ref b;
+begin
+    int c, d, e;
+    ref f, g, h;
+    
+    f = new;
+    g = ref h;
+    a = b;
+    c = 5;
+    d = a + c - e + a * c + (a + c) * (d - e);
+    
+    input a;
+    output a + c - e + a * c + (a + c) * (d - e);
+    
+    if !(a + c == d - e or !(d <= e or d < e)) then
+        a = b;
+        a = b;
+    endif
+    if !(a + c == d - e or !(d <= e or d < e)) then
+        a = b;
+        a = b;
+    else
+        a = b;
+        a = b;
+    endif
+
+    while !(a + c == d - e or !(d <= e or d < e)) begin
+        a = b;
+        a = b;
+    endwhile
+end

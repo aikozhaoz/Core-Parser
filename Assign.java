@@ -31,7 +31,6 @@ public class Assign {
             Utility.expectedhelper(Core.ASSIGN, S.currentToken());
             System.exit(-1);
         }
-
         // Option 1: <assign> ::= id = new;
         if (S.currentToken() == Core.NEW) {
             option = 1;

@@ -1,9 +1,12 @@
+import java.util.*;
+
 public class Prog {
 
     int option = 0;
 
     DeclSeq declseq;
     StmtSeq stmtseq;
+    Stack<Map<String, Core>> scopetrack;
 
     Prog(){
         declseq = null;
