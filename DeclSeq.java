@@ -17,7 +17,7 @@ public class DeclSeq {
         decl.parse(S);
         // Option 2: <decl-seq> ::= <decl><decl-seq>
         // If the current token != Core.BEGIN, continue parsing declseq.
-        if (S.currentToken() != Core.BEGIN) {
+        if (S.currentToken() == Core.INT || S.currentToken() == Core.REF ){
             option = 2;
             declseq = new DeclSeq();
             declseq.parse(S);

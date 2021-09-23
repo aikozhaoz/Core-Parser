@@ -51,6 +51,6 @@ public class Cmpr {
         }else if (option == 3){
             System.out.print("<=");
         }
-        exprtwo.print(indent);  
+        exprtwo.print(indent); 
     }
 }

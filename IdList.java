@@ -26,6 +26,7 @@ public class IdList {
         // Option 2: <id-list> ::= id , <id-list>
         if (S.currentToken()==Core.COMMA) {
             option = 2;
+            S.expectedToken(Core.COMMA);
             idlist = new IdList();
             idlist.parse(S);
         }

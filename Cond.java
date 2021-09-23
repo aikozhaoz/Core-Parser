@@ -56,13 +56,10 @@ public class Cond {
     }
 
     public void print(int indent) {
-        for (int i = 0; i < indent; i++) {
-            line += "  ";
-        }
         if (option == 1) {
-            System.out.print(line + "!( ");
+            System.out.print("!(");
             cond.print(indent);
-            System.out.print(") ");
+            System.out.print(")");
         } else if (option == 2) {
             cmpr.print(indent);
         } else if (option == 3) {
