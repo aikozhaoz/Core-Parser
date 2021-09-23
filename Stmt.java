@@ -66,6 +66,7 @@ public class Stmt {
         // So if the current token != id or if or while or input or output or int/ref,
         // then syntax error
         else {
+            // System.out.println("SHOULD BE ENDIF"+S.tokens);
             Core[] expectedones = new Core[]{Core.ID, Core.IF, Core.WHILE, Core.INPUT, Core.OUTPUT, Core.INT, Core.REF};
             Utility.errorhelper(expectedones, S.currentToken());
             System.exit(-1);

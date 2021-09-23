@@ -38,6 +38,6 @@ public class Loop {
         System.out.println(" begin");
         indent++;
         stmtseq.print(indent);
-        System.out.println("endwhile");
+        System.out.println(line + "endwhile");
     }
 }

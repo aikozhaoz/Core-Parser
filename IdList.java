@@ -32,8 +32,9 @@ public class IdList {
     }
 
     public void print(int indent) {
-        System.out.print(line + id + ",");
+        System.out.print(line + id);
         if(option==2){
+            System.out.print(",");
             idlist.print(indent);
         }
     }

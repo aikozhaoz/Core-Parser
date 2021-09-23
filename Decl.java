@@ -14,7 +14,9 @@ public class Decl {
         // Option 1: <decl> ::= <decl-int>
         if (S.currentToken() == Core.INT) {
             option = 1;
+            // System.out.println("Declint");
             declint = new DeclInt();
+            // System.out.println("Declint declaration");
             declint.parse(S);
         } 
         // Option 2: <decl> ::= <decl-class>

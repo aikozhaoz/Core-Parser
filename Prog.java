@@ -23,6 +23,7 @@ public class Prog {
         // Option 2: <prog> ::= program begin <stmt-seq> end
         if (S.currentToken() != Core.BEGIN) {
             option = 2;
+            // System.out.println("Declseq");
             declseq = new DeclSeq();
             declseq.parse(S);
         }

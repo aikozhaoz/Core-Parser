@@ -31,4 +31,13 @@ public class Utility {
         }
     }
 
+    public static boolean checkIfTokenIsExpected(Core[] expectedones, Core current){
+        boolean check = false;
+        for(int i = 0; i< expectedones.length; i++){
+            if (current ==expectedones[i]){
+                check = true;
+            }
+        }
+        return check;
+    }
 }

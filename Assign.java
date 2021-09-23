@@ -31,6 +31,7 @@ public class Assign {
             Utility.expectedhelper(Core.ASSIGN, S.currentToken());
             System.exit(-1);
         }
+
         // Option 1: <assign> ::= id = new;
         if (S.currentToken() == Core.NEW) {
             option = 1;
@@ -57,6 +58,7 @@ public class Assign {
             expr = new Expr();
             expr.parse(S);
         }
+        
         // So if the currentToken != "new or id or const or (", then syntax is invalid.
         else {
             Core[] expectedones = new Core[] { Core.NEW, Core.REF, Core.ID, Core.CONST, Core.LPAREN };

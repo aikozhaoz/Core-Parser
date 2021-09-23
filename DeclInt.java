@@ -15,8 +15,8 @@ public class DeclInt {
             Utility.expectedhelper(Core.INT, S.currentToken());
             System.exit(-1);
         }
-        System.out.println(S.currentToken());
-        System.exit(-1);
+        // System.out.println(S.currentToken());
+        // System.exit(-1);
         idlist = new IdList();
         idlist.parse(S);
         if (!S.expectedToken(Core.SEMICOLON)) {

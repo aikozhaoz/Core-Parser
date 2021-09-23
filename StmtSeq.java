@@ -5,19 +5,22 @@ public class StmtSeq {
     Stmt stmt;
     StmtSeq stmtseq;
 
-    StmtSeq(){
+    StmtSeq() {
         option = 0;
-        stmt = new Stmt();
+        stmt = null;
         stmtseq = null;
     }
 
     public void parse(Scanner S) {
         // Option 1: <stmt-seq> ::= <stmt>
         option = 1;
+        stmt = new Stmt();
         stmt.parse(S);
+        // System.out.println("after stmt"+S.tokens);
         // Option 2: <stmt-seq> ::= <stmt><stmt-seq>
         // If the current token != Core.END, continue parsing stmtseq.
-        if (S.currentToken() != Core.END) {
+        Core[] expectedones = new Core[] { Core.ID, Core.IF, Core.WHILE, Core.INPUT, Core.OUTPUT, Core.INT, Core.REF };
+        if (Utility.checkIfTokenIsExpected(expectedones, S.currentToken())) {
             option = 2;
             stmtseq = new StmtSeq();
             stmtseq.parse(S);

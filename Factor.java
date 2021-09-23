@@ -21,7 +21,7 @@ public class Factor {
             S.expectedToken(Core.ID);
         }
         // Option 2: <factor> ::= const
-        else if (S.currentToken() == Core.CONST) {
+        else if (S.currentToken() == Core.CONST) {   
             cons = S.getCONST();
             option = 2;
             S.expectedToken(Core.CONST);
