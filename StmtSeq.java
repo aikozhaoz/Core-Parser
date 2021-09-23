@@ -1,9 +1,15 @@
 public class StmtSeq {
 
-    public static int option = 0;
+    int option;
 
-    public Stmt stmt = new Stmt();
-    public StmtSeq stmtseq = new StmtSeq();
+    Stmt stmt;
+    StmtSeq stmtseq;
+
+    StmtSeq(){
+        option = 0;
+        stmt = new Stmt();
+        stmtseq = null;
+    }
 
     public void parse(Scanner S) {
         // Option 1: <stmt-seq> ::= <stmt>
@@ -13,6 +19,7 @@ public class StmtSeq {
         // If the current token != Core.END, continue parsing stmtseq.
         if (S.currentToken() != Core.END) {
             option = 2;
+            stmtseq = new StmtSeq();
             stmtseq.parse(S);
         }
     }

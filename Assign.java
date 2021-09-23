@@ -1,11 +1,20 @@
 public class Assign {
 
-    public int option = 0;
-    public String line;
+    int option;
+    String line;
 
-    public Expr expr = new Expr();
-    public String idone = "";
-    public String idtwo = "";
+    Expr expr;
+    String idone;
+    String idtwo;
+
+    Assign(){
+        option = 0;
+        line = "";
+        
+        expr = null;
+        idone = "";
+        idtwo = "";
+    }
 
     public void parse(Scanner S) {
         // <assign> ::= id = new | id = ref id; | id = <expr>;
@@ -45,6 +54,7 @@ public class Assign {
         // <factor> ::= id | const | ( <expr> )
         else if (S.currentToken() == Core.ID || S.currentToken() == Core.CONST || S.currentToken() == Core.LPAREN) {
             option = 3;
+            expr = new Expr();
             expr.parse(S);
         }
         // So if the currentToken != "new or id or const or (", then syntax is invalid.

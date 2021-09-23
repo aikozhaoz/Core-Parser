@@ -1,8 +1,13 @@
 public class In {
 
-    public String line;
+    String line;
 
-    public String id;
+    String id;
+
+    In(){
+        line = "";
+        id = "";
+    }
 
     public void parse(Scanner S) {
         // <in> ::= input id ;

@@ -1,43 +1,59 @@
 public class Stmt {
 
-    public static int option = 0;
+    int option;
 
-    public Assign assign = new Assign();
-    public If ifobj = new If();
-    public Loop loop = new Loop();
-    public In in = new In();
-    public Out out = new Out();
-    public Decl decl = new Decl();
+    Assign assign;
+    If ifobj;
+    Loop loop;
+    In in;
+    Out out;
+    Decl decl;
+
+    Stmt(){
+        option = 0;
+        assign = null;
+        ifobj = null;
+        loop = null;
+        in = null;
+        out = null;
+        decl = null;
+    }
 
     public void parse(Scanner S) {
         // Option 1: <stmt> ::= <assign>
         if (S.currentToken() == Core.ID) {
             option = 1;
+            assign = new Assign();
             assign.parse(S);
         }
         // Option 2: <stmt> ::= <if>
         else if (S.currentToken() == Core.IF) {
             option = 2;
+            ifobj = new If();
             ifobj.parse(S);
         }
         // Option 3: <stmt> ::= <loop>
         else if (S.currentToken() == Core.WHILE) {
             option = 3;
+            loop = new Loop();
             loop.parse(S);
         }
         // Option 4: <stmt> ::= <in>
         else if (S.currentToken() == Core.INPUT) {
             option = 4;
+            in = new In();
             in.parse(S);
         }
         // Option 5: <stmt> ::= <out>
         else if (S.currentToken() == Core.OUTPUT) {
             option = 5;
+            out = new Out();
             out.parse(S);
         }
         // Option 6: <stmt> ::= <decl>
         else if (S.currentToken() == Core.INT || S.currentToken() == Core.REF) {
             option = 6;
+            decl = new Decl();
             decl.parse(S);
         }
         // <assign> ::= id = <expr> ; | id = new ; | id = ref id ;

@@ -1,9 +1,15 @@
 public class Cmpr {
 
-    public int option = 0;
+    int option;
 
-    public Expr exprone = new Expr();
-    public Expr exprtwo = new Expr();
+    Expr exprone;
+    Expr exprtwo;
+
+    Cmpr(){
+        option = 0;
+        exprone = new Expr();
+        exprtwo = new Expr();
+    }
 
     public void parse(Scanner S) {
         // <cmpr> ::= <expr> == <expr> | <expr> < <expr> | <expr> <= <expr>

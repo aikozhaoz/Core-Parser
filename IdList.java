@@ -1,10 +1,17 @@
 public class IdList {
 
-    public static int option = 0;
-    public String line;
-    public String id;
-
-    public IdList idlist = new IdList();
+    int option;
+    String line;
+    String id;
+    
+    IdList idlist;
+    
+    IdList(){
+        option = 0;
+        line = "";
+        id = "";
+        idlist = null;
+    }
 
     public void parse(Scanner S) {
         // Option 1: <id-list> ::= id
@@ -19,13 +26,13 @@ public class IdList {
         // Option 2: <id-list> ::= id , <id-list>
         if (S.currentToken()==Core.COMMA) {
             option = 2;
-            id += ",";
+            idlist = new IdList();
             idlist.parse(S);
         }
     }
 
     public void print(int indent) {
-        System.out.print(line + id);
+        System.out.print(line + id + ",");
         if(option==2){
             idlist.print(indent);
         }

@@ -1,10 +1,16 @@
 public class Factor {
 
-    public int option = 0;
+    int option = 0;
 
-    public String id;
-    public int cons;
-    public Expr expr = new Expr();
+    String id;
+    int cons;
+    Expr expr;
+
+    Factor(){
+        option = 0;
+        id = "";
+        expr = null;
+    }
 
     public void parse(Scanner S) {
         // <factor> ::= id | const | ( <expr> )
@@ -24,6 +30,7 @@ public class Factor {
         else if (S.currentToken() == Core.LPAREN) {
             option = 3;
             S.expectedToken(Core.LPAREN);
+            expr = new Expr();
             expr.parse(S);
             if (!S.expectedToken(Core.RPAREN)) {
                 Utility.expectedhelper(Core.RPAREN, S.currentToken());

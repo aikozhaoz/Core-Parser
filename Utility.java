@@ -31,15 +31,4 @@ public class Utility {
         }
     }
 
-    // public static boolean checkWithinExpectedones(Core[] expectedones, Core current){
-    //     boolean check = false;
-    //     for(int i = 0; i<expectedones.length; i++){
-    //         if(expectedones[i]==current){
-    //             check = true;
-    //             return check;
-    //         }
-    //     }
-    //     return check;
-    // }
-
 }

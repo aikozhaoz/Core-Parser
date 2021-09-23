@@ -1,10 +1,17 @@
 public class Cond {
 
-    public static int option = 0;
-    public String line;
+    int option;
+    String line;
 
-    public Cmpr cmpr = new Cmpr();
-    public Cond cond = new Cond();
+    Cond cond;
+    Cmpr cmpr;
+
+    Cond(){
+        option = 0;
+        line = "";
+        cmpr = null;
+        cond = null;
+    }
 
     public void parse(Scanner S) {
         // <cond> ::= <cmpr> | ! ( <cond> ) | <cmpr> or <cond>
@@ -16,6 +23,7 @@ public class Cond {
                 Utility.expectedhelper(Core.LPAREN, S.currentToken());
                 System.exit(-1);
             }
+            cond = new Cond();
             cond.parse(S);
             if (!S.expectedToken(Core.RPAREN)) {
                 Utility.expectedhelper(Core.RPAREN, S.currentToken());
@@ -29,11 +37,13 @@ public class Cond {
         // <factor> ::= id | const | ( <expr> )
         else if (S.currentToken() == Core.ID || S.currentToken() == Core.CONST || S.currentToken() == Core.LPAREN) {
             option = 2;
+            cmpr = new Cmpr();
             cmpr.parse(S);
             // Option 3: <cmpr> or <cond>
             if (S.currentToken() == Core.OR) {
                 option = 3;
                 S.expectedToken(Core.OR);
+                cond = new Cond();
                 cond.parse(S);
             }
         }

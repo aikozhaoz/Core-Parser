@@ -1,11 +1,18 @@
 public class If {
 
-    public static int option = 0;
-    public String line;
+    int option;
+    String line;
 
-    public Cond cond = new Cond();
-    public StmtSeq stmtseqone = new StmtSeq();
-    public StmtSeq stmtseqtwo = new StmtSeq();
+    Cond cond;
+    StmtSeq stmtseqone;
+    StmtSeq stmtseqtwo;
+
+    If(){
+        option = 0;
+        cond = null;
+        stmtseqone = null;
+        stmtseqtwo = null;
+    }
 
     public void parse(Scanner S) {
         // <if> ::= if <cond> then <stmt-seq> endif | if <cond> then <stmt-seq> else <stmt-seq> endif
@@ -14,11 +21,13 @@ public class If {
             Utility.expectedhelper(Core.IF, S.currentToken());
             System.exit(-1);
         }
+        cond = new Cond();
         cond.parse(S);
         if(!S.expectedToken(Core.THEN)){
             Utility.expectedhelper(Core.THEN, S.currentToken());
             System.exit(-1);
         }
+        stmtseqone = new StmtSeq();
         stmtseqone.parse(S);
         // This is where options diverge!
         // Option 1: <if> ::= if <cond> then <stmt-seq> endif
@@ -30,6 +39,7 @@ public class If {
         else if (S.currentToken() == Core.ELSE) {
             option = 2;
             S.expectedToken(Core.ELSE);
+            stmtseqtwo = new StmtSeq();
             stmtseqtwo.parse(S);
             if(!S.expectedToken(Core.ENDIF)){
                 Utility.expectedhelper(Core.ENDIF, S.currentToken());

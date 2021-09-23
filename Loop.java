@@ -1,9 +1,15 @@
 public class Loop {
 
-    public String line;
+    String line;
 
-    public Cond cond = new Cond();
-    public StmtSeq stmtseq = new StmtSeq();
+    Cond cond;
+    StmtSeq stmtseq;
+
+    Loop(){
+        line = "";
+        cond = new Cond();
+        stmtseq = new StmtSeq();
+    }
 
     public void parse(Scanner S) {
         // <loop> ::= while <cond> begin <stmt-seq> endwhile

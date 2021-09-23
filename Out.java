@@ -2,8 +2,12 @@ public class Out {
 
     public String line;
 
-    public Expr expr = new Expr();
+    Expr expr;
 
+    Out(){
+        line = "";
+        expr = null;
+    }
     public void parse(Scanner S) {
         // <out> ::= output <expr> ;
         if (!S.expectedToken(Core.OUTPUT)) {
@@ -14,6 +18,7 @@ public class Out {
         // <term> ::= <factor> | <factor> * <term>
         // <factor> ::= id | const | ( <expr> )
         if (S.currentToken() == Core.ID || S.currentToken() == Core.CONST || S.currentToken() == Core.LPAREN) {
+            expr = new Expr();
             expr.parse(S);
         }
         // So if the currentToken != id or const or (, then invalid syntax

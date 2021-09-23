@@ -1,9 +1,14 @@
 public class Prog {
 
-    public static int option = 0;
+    int option = 0;
 
-    public DeclSeq declseq = new DeclSeq();
-    public StmtSeq stmtseq = new StmtSeq();
+    DeclSeq declseq;
+    StmtSeq stmtseq;
+
+    Prog(){
+        declseq = null;
+        stmtseq = new StmtSeq();
+    }
 
     public void parse(Scanner S) {
         // Option 1: <prog> ::= program <decl-seq> begin <stmt-seq> end
@@ -18,6 +23,7 @@ public class Prog {
         // Option 2: <prog> ::= program begin <stmt-seq> end
         if (S.currentToken() != Core.BEGIN) {
             option = 2;
+            declseq = new DeclSeq();
             declseq.parse(S);
         }
 
@@ -38,6 +44,7 @@ public class Prog {
 
     public void print(int indent) {
         System.out.println("program");
+        // declseq.print(indent);
         if (option == 2) {
             declseq.print(indent);
         }

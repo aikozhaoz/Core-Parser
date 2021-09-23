@@ -1,8 +1,13 @@
 public class DeclClass {
 
-    public String line;
+    String line;
 
-    public IdList idlist = new IdList();
+    IdList idlist;
+
+    DeclClass(){
+        line = "";
+        idlist = null;
+    }
 
     public void parse(Scanner S) {
         // <decl-class> ::= ref <id-list> ;
@@ -10,6 +15,7 @@ public class DeclClass {
             Utility.expectedhelper(Core.REF, S.currentToken());
             System.exit(-1);
         }
+        idlist = new IdList();
         idlist.parse(S);
         if (!S.expectedToken(Core.SEMICOLON)) {
             Utility.expectedhelper(Core.SEMICOLON, S.currentToken());

@@ -1,9 +1,15 @@
 public class DeclSeq {
 
-    public static int option = 0;
+    int option;
 
-    public Decl decl = new Decl();
-    public DeclSeq declseq = new DeclSeq();
+    Decl decl;
+    DeclSeq declseq;
+
+    DeclSeq(){
+        option = 0;
+        decl = new Decl();
+        declseq = null; 
+    }
 
     public void parse(Scanner S) {
         // Option 1: <decl-seq> ::= <decl>
@@ -13,6 +19,7 @@ public class DeclSeq {
         // If the current token != Core.BEGIN, continue parsing declseq.
         if (S.currentToken() != Core.BEGIN) {
             option = 2;
+            declseq = new DeclSeq();
             declseq.parse(S);
         } 
     }

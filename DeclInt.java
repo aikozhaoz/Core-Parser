@@ -1,8 +1,13 @@
 public class DeclInt {
 
-    public String line;
+    String line;
 
-    public IdList idlist = new IdList();
+    IdList idlist;
+    
+    DeclInt(){
+        line = "";
+        idlist = null;
+    }
 
     public void parse(Scanner S) {
         // <decl-int> ::= int <id-list> ;
@@ -10,6 +15,9 @@ public class DeclInt {
             Utility.expectedhelper(Core.INT, S.currentToken());
             System.exit(-1);
         }
+        System.out.println(S.currentToken());
+        System.exit(-1);
+        idlist = new IdList();
         idlist.parse(S);
         if (!S.expectedToken(Core.SEMICOLON)) {
             Utility.expectedhelper(Core.SEMICOLON, S.currentToken());

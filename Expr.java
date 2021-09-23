@@ -1,10 +1,15 @@
 public class Expr {
 
-    public int option = 0;
+    int option;
 
-    public Term term = new Term();
-    public Expr expr = new Expr();
+    Term term;
+    Expr expr;
 
+    Expr(){
+        option = 0;
+        term = null;
+        expr = null;
+    }
     public void parse(Scanner S) {
         // <expr> ::= <term> | <term> + <expr> | <term> – <expr>
         // Regardless of which option we are on.
@@ -12,17 +17,20 @@ public class Expr {
 
         // Option 1: <expr> ::= <term>
         option = 1;
+        term = new Term();
         term.parse(S);
         // Option 2: <expr> ::= <term> + <expr>
         if (S.currentToken() == Core.ADD) {
             option = 2;
             S.expectedToken(Core.ADD);
+            expr = new Expr();
             expr.parse(S);
         }
         // Option 3: <expr> ::= <term> – <expr>
         else if (S.currentToken() == Core.SUB) {
             option = 3;
             S.expectedToken(Core.SUB);
+            expr = new Expr();
             expr.parse(S);
         }
     }

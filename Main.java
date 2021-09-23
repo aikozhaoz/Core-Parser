@@ -7,7 +7,7 @@ class Main {
 
 		//root.semantic();
 
-		// root.print(0);
+		root.print(1);
 
 		
 		

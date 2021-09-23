@@ -1,19 +1,26 @@
 public class Decl {
 
-    public static int option = 0;
+    int option;
 
-    public DeclInt declint = new DeclInt();
-    public DeclClass declclass = new DeclClass();
+    DeclInt declint;
+    DeclClass declclass;
 
+    Decl(){
+        option = 0;
+        declint = null;
+        declclass = null;
+    }
     public void parse(Scanner S) {
         // Option 1: <decl> ::= <decl-int>
         if (S.currentToken() == Core.INT) {
             option = 1;
+            declint = new DeclInt();
             declint.parse(S);
         } 
         // Option 2: <decl> ::= <decl-class>
         else if (S.currentToken() == Core.REF) {
             option = 2;
+            declclass = new DeclClass();
             declclass.parse(S);
         } 
         // So if the currentToken != id or ref, then syntax is invalid.
