@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Factor {
 
     int option = 0;
@@ -6,7 +8,7 @@ public class Factor {
     int cons;
     Expr expr;
 
-    Factor(){
+    Factor() {
         option = 0;
         id = "";
         expr = null;
@@ -21,7 +23,7 @@ public class Factor {
             S.expectedToken(Core.ID);
         }
         // Option 2: <factor> ::= const
-        else if (S.currentToken() == Core.CONST) {   
+        else if (S.currentToken() == Core.CONST) {
             cons = S.getCONST();
             option = 2;
             S.expectedToken(Core.CONST);
@@ -46,12 +48,38 @@ public class Factor {
 
     }
 
+    public void semantic(Stack<Map<String, Core>> scopetrack) {
+        System.out.println(id);
+        if (option == 3) {
+            expr.semantic(scopetrack);
+        }
+        // Check if the ID is being declared.
+        else if (option == 1) {
+            boolean IDdeclared = false;
+            String key = id;
+            // Loop through the stack to see if the current ID is declared.
+            for (Map<String, Core> currentscope : scopetrack) {
+                // If the current ID is declared. Check if the declared type is right.
+                if (currentscope.containsKey(key)) {
+                    System.out.println(key);
+                    IDdeclared = true;
+                }
+            }
+            if (!IDdeclared) {
+                Utility.UseUndeclaredIdError(key);
+                System.exit(-1);
+            }
+
+        }
+    }
+
     public void print(int indent) {
-        if(option == 1){
+        if (option == 1) {
             System.out.print(id);
-        }else if(option == 2){
+        } else if (option == 2) {
             System.out.print(cons);
-        }if(option == 3){
+        }
+        if (option == 3) {
             System.out.print("(");
             expr.print(indent);
             System.out.print(")");

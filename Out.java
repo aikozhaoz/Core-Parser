@@ -1,13 +1,16 @@
+import java.util.*;
+
 public class Out {
 
     public String line;
 
     Expr expr;
 
-    Out(){
+    Out() {
         line = "";
         expr = null;
     }
+
     public void parse(Scanner S) {
         // <out> ::= output <expr> ;
         if (!S.expectedToken(Core.OUTPUT)) {
@@ -31,6 +34,10 @@ public class Out {
             Utility.expectedhelper(Core.SEMICOLON, S.currentToken());
             System.exit(-1);
         }
+    }
+
+    public void semantic(Stack<Map<String, Core>> scopetrack) {
+        expr.semantic(scopetrack);
     }
 
     public void print(int indent) {

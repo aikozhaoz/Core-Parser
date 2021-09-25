@@ -1,10 +1,12 @@
+import java.util.*;
+
 public class DeclClass {
 
     String line;
 
     IdList idlist;
 
-    DeclClass(){
+    DeclClass() {
         line = "";
         idlist = null;
     }
@@ -21,6 +23,10 @@ public class DeclClass {
             Utility.expectedhelper(Core.SEMICOLON, S.currentToken());
             System.exit(-1);
         }
+    }
+
+    public void semantic(Stack<Map<String, Core>> scopetrack) {
+        idlist.semantic(scopetrack, Core.REF);
     }
 
     public void print(int indent) {

@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Cmpr {
 
     int option;
@@ -5,7 +7,7 @@ public class Cmpr {
     Expr exprone;
     Expr exprtwo;
 
-    Cmpr(){
+    Cmpr() {
         option = 0;
         exprone = new Expr();
         exprtwo = new Expr();
@@ -21,13 +23,13 @@ public class Cmpr {
             option = 1;
             S.expectedToken(Core.EQUAL);
             exprtwo.parse(S);
-        } 
+        }
         // Option 2: <cmpr> ::= <expr> < <expr>
         else if (S.currentToken() == Core.LESS) {
             option = 2;
             S.expectedToken(Core.LESS);
             exprtwo.parse(S);
-        } 
+        }
         // Option 3: <cmpr> ::= <expr> <= <expr>
         else if (S.currentToken() == Core.LESSEQUAL) {
             option = 3;
@@ -35,22 +37,27 @@ public class Cmpr {
             exprtwo.parse(S);
         }
         // So if the currentToken != ""== or < or <="", then syntax is invalid.
-        else{
-            Core[] expectedones = new Core[]{Core.EQUAL, Core.LESS, Core.LESSEQUAL};
+        else {
+            Core[] expectedones = new Core[] { Core.EQUAL, Core.LESS, Core.LESSEQUAL };
             Utility.errorhelper(expectedones, S.currentToken());
             System.exit(-1);
         }
     }
 
+    public void semantic(Stack<Map<String, Core>> scopetrack) {
+        exprone.semantic(scopetrack);
+        exprtwo.semantic(scopetrack);
+    }
+
     public void print(int indent) {
         exprone.print(indent);
-        if(option == 1){
+        if (option == 1) {
             System.out.print("==");
-        }else if (option == 2){
+        } else if (option == 2) {
             System.out.print("<");
-        }else if (option == 3){
+        } else if (option == 3) {
             System.out.print("<=");
         }
-        exprtwo.print(indent); 
+        exprtwo.print(indent);
     }
 }

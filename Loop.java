@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Loop {
 
     String line;
@@ -5,7 +7,7 @@ public class Loop {
     Cond cond;
     StmtSeq stmtseq;
 
-    Loop(){
+    Loop() {
         line = "";
         cond = new Cond();
         stmtseq = new StmtSeq();
@@ -27,6 +29,14 @@ public class Loop {
             Utility.expectedhelper(Core.ENDWHILE, S.currentToken());
             System.exit(-1);
         }
+    }
+
+    public void semantic(Stack<Map<String, Core>> scopetrack) {
+        cond.semantic(scopetrack);
+        // New scope starts after "BEGIN".
+        Map<String, Core> scopeone = new HashMap<>();
+        scopetrack.push(scopeone);
+        stmtseq.semantic(scopetrack);
     }
 
     public void print(int indent) {

@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Term {
 
     int option;
@@ -5,11 +7,12 @@ public class Term {
     Factor factor;
     Term term;
 
-    Term(){
+    Term() {
         option = 0;
         factor = null;
         term = null;
     }
+
     public void parse(Scanner S) {
         // <term> ::= <factor> | <factor> * <term>
         // Regardless of which option we are on.
@@ -27,9 +30,16 @@ public class Term {
         }
     }
 
+    public void semantic(Stack<Map<String, Core>> scopetrack) {
+        factor.semantic(scopetrack);
+        if (option == 2) {
+            term.semantic(scopetrack);
+        }
+    }
+
     public void print(int indent) {
         factor.print(indent);
-        if(option==2){
+        if (option == 2) {
             System.out.print("*");
             term.print(indent);
         }

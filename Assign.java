@@ -1,3 +1,7 @@
+import java.util.*;
+
+import jdk.jshell.execution.Util;
+
 public class Assign {
 
     int option;
@@ -7,10 +11,10 @@ public class Assign {
     String idone;
     String idtwo;
 
-    Assign(){
+    Assign() {
         option = 0;
         line = "";
-        
+
         expr = null;
         idone = "";
         idtwo = "";
@@ -57,7 +61,7 @@ public class Assign {
             expr = new Expr();
             expr.parse(S);
         }
-        
+
         // So if the currentToken != "new or id or const or (", then syntax is invalid.
         else {
             Core[] expectedones = new Core[] { Core.NEW, Core.REF, Core.ID, Core.CONST, Core.LPAREN };
@@ -66,6 +70,38 @@ public class Assign {
         }
         if (!S.expectedToken(Core.SEMICOLON)) {
             Utility.expectedhelper(Core.SEMICOLON, S.currentToken());
+            System.exit(-1);
+        }
+    }
+
+    public void semantic(Stack<Map<String, Core>> scopetrack) {
+        boolean IDdeclared = false;
+        boolean rightType = false;
+        String key = idone;
+        // Check if the current ID is being declared yet before using it.
+        for (Map<String, Core> currentscope : scopetrack) {
+            // If the current ID is declared. Check if the declared type is right.
+            if (currentscope.containsKey(key)) {
+                IDdeclared = true;
+                if (option == 1 && currentscope.get(idone) == Core.REF) {
+                    rightType = true;
+                } else if (option == 2 && currentscope.get(idone) == Core.REF && currentscope.get(idtwo) == Core.REF) {
+                    rightType = true;
+                } 
+                // If the current token is expr then expr will handle the semantic check. 
+                // Set the rightType to true allows expr to do the semantic check.
+                else if (option == 3) {
+                    rightType = true;
+                    expr.semantic(scopetrack);
+                }
+            }
+        }
+        if (!IDdeclared) {
+            Utility.UseUndeclaredIdError(idone);
+            System.exit(-1);
+        }
+        if (!rightType) {
+            Utility.DeclaredTypeError(idone);
             System.exit(-1);
         }
     }

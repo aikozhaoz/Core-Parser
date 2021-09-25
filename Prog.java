@@ -2,13 +2,15 @@ import java.util.*;
 
 public class Prog {
 
-    int option = 0;
+    int option;
+    Stack<Map<String, Core>> scopetrack;
 
     DeclSeq declseq;
     StmtSeq stmtseq;
-    Stack<Map<String, Core>> scopetrack;
 
-    Prog(){
+    Prog() {
+        option = 0;
+        scopetrack = new Stack<Map<String, Core>>();
         declseq = null;
         stmtseq = new StmtSeq();
     }
@@ -22,11 +24,10 @@ public class Prog {
         option = 1;
         // If the next token is not BEGIN, it should be decl_seq.
         // If the next token is BEGIN, skip the if and jump to expectedToken(BEGIN)
-        
+
         // Option 2: <prog> ::= program begin <stmt-seq> end
         if (S.currentToken() != Core.BEGIN) {
             option = 2;
-            // System.out.println("Declseq");
             declseq = new DeclSeq();
             declseq.parse(S);
         }
@@ -46,9 +47,19 @@ public class Prog {
         }
     }
 
+    public void semantic() {
+        if (option == 2) {
+            Map<String, Core> global = new HashMap<>();
+            scopetrack.add(global);
+            declseq.semantic(scopetrack);
+        }
+        Map<String, Core> localLone = new HashMap<>();
+        scopetrack.add(localLone);
+        stmtseq.semantic(scopetrack);
+    }
+
     public void print(int indent) {
         System.out.println("program");
-        // declseq.print(indent);
         if (option == 2) {
             declseq.print(indent);
         }

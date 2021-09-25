@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Stmt {
 
     int option;
@@ -9,7 +11,7 @@ public class Stmt {
     Out out;
     Decl decl;
 
-    Stmt(){
+    Stmt() {
         option = 0;
         assign = null;
         ifobj = null;
@@ -67,9 +69,26 @@ public class Stmt {
         // then syntax error
         else {
             // System.out.println("SHOULD BE ENDIF"+S.tokens);
-            Core[] expectedones = new Core[]{Core.ID, Core.IF, Core.WHILE, Core.INPUT, Core.OUTPUT, Core.INT, Core.REF};
+            Core[] expectedones = new Core[] { Core.ID, Core.IF, Core.WHILE, Core.INPUT, Core.OUTPUT, Core.INT,
+                    Core.REF };
             Utility.errorhelper(expectedones, S.currentToken());
             System.exit(-1);
+        }
+    }
+
+    public void semantic(Stack<Map<String, Core>> scopetrack) {
+        if (option == 1) {
+            assign.semantic(scopetrack);
+        } else if (option == 2) {
+            ifobj.semantic(scopetrack);
+        } else if (option == 3) {
+            loop.semantic(scopetrack);
+        } else if (option == 4) {
+            in.semantic(scopetrack);
+        } else if (option == 5) {
+            out.semantic(scopetrack);
+        } else if (option == 6) {
+            decl.semantic(scopetrack);
         }
     }
 

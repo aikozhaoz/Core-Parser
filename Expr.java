@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Expr {
 
     int option;
@@ -5,11 +7,12 @@ public class Expr {
     Term term;
     Expr expr;
 
-    Expr(){
+    Expr() {
         option = 0;
         term = null;
         expr = null;
     }
+
     public void parse(Scanner S) {
         // <expr> ::= <term> | <term> + <expr> | <term> – <expr>
         // Regardless of which option we are on.
@@ -32,6 +35,13 @@ public class Expr {
             S.expectedToken(Core.SUB);
             expr = new Expr();
             expr.parse(S);
+        }
+    }
+
+    public void semantic(Stack<Map<String, Core>> scopetrack) {
+        term.semantic(scopetrack);
+        if (option == 2 || option == 3) {
+            expr.semantic(scopetrack);
         }
     }
 

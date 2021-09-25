@@ -1,3 +1,7 @@
+import java.util.*;
+
+import jdk.jshell.execution.Util;
+
 public class IdList {
 
     int option;
@@ -32,6 +36,28 @@ public class IdList {
         }
     }
 
+    public void semantic(Stack<Map<String, Core>> scopetrack, Core idorclass){
+        // Pop off the current scope from the stack
+        Map<String, Core> currentscope = scopetrack.pop();
+        String key = id;
+            
+        // Check if the id is already declared within the current scope.
+        // If so output error messages
+        if(currentscope.containsKey(key)){
+            Utility.DoubleDeclarationError(key);
+            System.exit(-1);
+        }
+        // If not, add <ID, idorclass> to currentscope
+        // Put currentscope back to stack
+        else{
+            currentscope.put(key, idorclass);
+            scopetrack.add(currentscope);
+        }
+        if(option==2){
+            idlist.semantic(scopetrack, idorclass);
+        }
+    }
+    
     public void print(int indent) {
         System.out.print(line + id);
         if(option==2){

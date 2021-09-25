@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Cond {
 
     int option;
@@ -6,7 +8,7 @@ public class Cond {
     Cond cond;
     Cmpr cmpr;
 
-    Cond(){
+    Cond() {
         option = 0;
         line = "";
         cmpr = null;
@@ -52,6 +54,17 @@ public class Cond {
             Core[] expectedones = new Core[] { Core.NEGATION, Core.ID, Core.CONST, Core.LPAREN };
             Utility.errorhelper(expectedones, S.currentToken());
             System.exit(-1);
+        }
+    }
+
+    public void semantic(Stack<Map<String, Core>> scopetrack) {
+        if (option == 1) {
+            cond.semantic(scopetrack);
+        } else if (option == 2) {
+            cmpr.semantic(scopetrack);
+        } else if (option == 3) {
+            cmpr.semantic(scopetrack);
+            cond.semantic(scopetrack);
         }
     }
 

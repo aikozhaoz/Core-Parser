@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class StmtSeq {
 
     int option;
@@ -24,6 +26,13 @@ public class StmtSeq {
             option = 2;
             stmtseq = new StmtSeq();
             stmtseq.parse(S);
+        }
+    }
+
+    public void semantic(Stack<Map<String, Core>> scopetrack) {
+        stmt.semantic(scopetrack);
+        if (option == 2) {
+            stmtseq.semantic(scopetrack);
         }
     }
 
