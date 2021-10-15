@@ -6,7 +6,7 @@
 * To run the actual program, run ```javac Main.java testfile```
 
 ### Project Description
-* A parser for a version of the Core language, a pretend language. The parser parses through the whole file and check if there is any syntax/semantic error in the file.
+* A parser for a version of the Core language, a pretend language. The parser parses through the whole program and check if there is any syntax/semantic error.
 
 ### Scanner Class
 * Scanner:
